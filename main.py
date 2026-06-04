@@ -12,7 +12,6 @@ intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True  # nécessaire pour le message de bienvenue
 bot = commands.Bot(command_prefix="!", intents=intents)
-welcome_channels = {}
 
 @bot.event
 async def on_command_error(ctx, error):
@@ -231,4 +230,8 @@ async def remind(ctx, time: int, msg: str):
 
 welcome_channels = {}
 welcome_channels.update(load_welcome_channel())
-bot.run(os.getenv("TOKEN"))
+token = os.getenv("TOKEN")
+if token:
+    bot.run(token)
+else:
+    print("TOKEN manquant")
